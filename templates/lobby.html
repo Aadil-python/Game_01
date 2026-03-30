@@ -1,0 +1,12 @@
+<h2>Rooms</h2>
+
+<form method="POST">
+    <input name="room" placeholder="Room name">
+    <button>Create / Join</button>
+</form>
+
+<ul>
+{% for r in rooms %}
+<li>{{r}}</li>
+{% endfor %}
+</ul>

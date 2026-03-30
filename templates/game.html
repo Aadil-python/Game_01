@@ -1,0 +1,43 @@
+<h2>Room: {{room}}</h2>
+<h3>User: {{username}}</h3>
+
+<input id="num" placeholder="Choose number">
+<button onclick="sendNumber()">Set Number</button>
+
+<br><br>
+
+<input id="guess" placeholder="Guess">
+<button onclick="guess()">Guess</button>
+
+<h3 id="status"></h3>
+
+<script src="https://cdn.socket.io/4.0.1/socket.io.min.js"></script>
+<script>
+let socket = io();
+
+socket.emit("join", {room: "{{room}}", username: "{{username}}"});
+
+function sendNumber(){
+    let n = document.getElementById("num").value;
+    socket.emit("choose_number", {room: "{{room}}", user: "{{username}}", number: n});
+}
+
+function guess(){
+    let g = document.getElementById("guess").value;
+    socket.emit("guess", {room: "{{room}}", user: "{{username}}", guess: g});
+}
+
+socket.on("result", (data)=>{
+    document.getElementById("status").innerText = data.msg + " than " + data.num;
+});
+
+socket.on("win", (user)=>{
+    document.getElementById("status").innerText = user + " WON!";
+});
+</script>
+<script src="https://cdn.socket.io/4.0.1/socket.io.min.js"></script>
+<script src="/static/script.js"></script>
+
+<script>
+    init("{{room}}", "{{username}}");
+</script>
