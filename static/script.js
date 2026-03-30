@@ -1,5 +1,5 @@
 // connect to server
-let socket = io();
+let socket = io("https://game-01.onrender.com");
 
 // global variables
 let room = null;
